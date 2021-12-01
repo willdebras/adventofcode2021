@@ -1,0 +1,51 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r badges, echo = FALSE}
+badge_stars <- function(color = "green", url = NULL, cookie = Sys.getenv("ADVENT_COOKIE")) {
+  
+  req <- httr::GET(glue::glue('https://adventofcode.com/'),
+                   httr::add_headers(.headers = c(
+                     "user-agent" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+                     "cookie" = paste0("session=", cookie)
+                   )))
+  
+  
+  #parsed <- httr::content(req, as = "text")
+  
+  parsed <- xml2::read_html(req)
+  
+  stars <- rvest::html_node(parsed, ".user")
+  
+  star_text <- rvest::html_text(stars)
+  
+  
+  
+  badge <- paste0("![](https://img.shields.io/badge/", "star count", "-", star_text, "-", color, ".svg)")
+  
+  if (is.null(url))
+    return(badge)
+  
+  paste0("[", badge, "](", url, ")")
+}
+```
+
+### adventofcode2021
+
+<!-- badges: start -->
+`r badge_stars("yellow")`
+<!-- badges: end -->
+
+If you are finding this, this is my personal repo for the 2021 Advent of Code challenge. I am using this to practice algorithmic thinking, branch out and write more code in Julia, and to just have fun. Feel free to ping me if you have questions!
+
+
