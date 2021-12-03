@@ -21,13 +21,11 @@ co2$dec <- apply(co2, 1, function(x) strtoi(paste0(x, collapse = ''), 2))
 
 while (nrow(oxy) > 1) {
   oxy <- oxy[oxy[[1]]==ceiling(median(oxy[[1]])), -1, drop = F]
-  print(oxy)
 }
 
 
 while (nrow(co2) > 1) {
   co2 <- co2[co2[[1]]==as.integer(sapply(ceiling(median(co2[[1]])), `!`)), -1, drop = F]
-  print(co2)
 }
 
 oxy$dec * co2$dec
